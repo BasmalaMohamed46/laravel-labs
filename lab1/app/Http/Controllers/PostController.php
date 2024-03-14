@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
     public function index()
     {
-      return view('posts.layout.index');
+      $posts = Post::paginate(10);
+      return view('posts.layout.index')->with(['posts' => $posts]);
     }
     public function create()
     {
@@ -21,11 +23,13 @@ class PostController extends Controller
     }
     public function show($id)
     {
-       return view('posts.layout.show', ['id' => $id]);
+       $post=Post::find($id);
+       return view('posts.layout.show', ['post' => $post]);
     }
     public function edit($id)
     {
-        return view('posts.layout.edit')->with(['id'=> $id]);
+        $post = Post::find($id);
+        return view('posts.layout.edit')->with(['post' => $post]);
     }
     public function update($id)
     {
@@ -34,8 +38,14 @@ class PostController extends Controller
     }
     public function destroy($id)
     {
-        //no view as we will data from data store
-        //redirect to post list
+       $post= Post::find($id);
+       $post->delete();
+       return redirect('http://127.0.0.1:8000/posts');
+    }
+    public function trash()
+    {
+        $posts = Post::onlyTrashed()->paginate(10);
+        return view('posts.layout.trash')->with(['posts' => $posts]);
     }
 
 

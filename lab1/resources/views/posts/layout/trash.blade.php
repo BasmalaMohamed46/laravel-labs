@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
     <body>
         <table class="table">
@@ -27,20 +28,14 @@
                 <td>
                 <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">Edit</a>
                     <form action="{{ route('posts.destroy',$post->id) }}" method="Post">
-                    @csrf
-                    @method('delete')
                     <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
             @endforeach
             </tbody>
-            </table>
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    {{ $posts->links() }}
-                </ul>
-            </nav>
+        </table>
+        {!! $posts->links() !!}
     </body>
 </html>
 
