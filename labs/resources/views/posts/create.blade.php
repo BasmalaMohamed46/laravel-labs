@@ -35,18 +35,7 @@
                   <span class="slider"></span>
               </label>
            </div>
-
-            <div class="mb-3">
-              <label  class="form-label">User</label>
-              <select class="form-control" name="user_id">
-                @foreach($users as $user)
-                <option value="{{$user->id}}">{{$user->name}}</option>
-                @endforeach
-              </select>
-              @error('user_id')
-              <div class="alert alert-danger">{{ $message }}</div>
-              @enderror
-            </div>
+           <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>

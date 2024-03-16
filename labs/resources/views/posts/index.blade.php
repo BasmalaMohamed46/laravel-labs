@@ -28,12 +28,14 @@
                         <td>{{$post->published_at}}</td>
                         <td>{{$post->user->name}}</td>
                         <td>
+                            @if($post->user_id == Auth::id())
                             <a class="btn btn-primary" href="{{ route('posts.edit',$post->id) }}">Edit</a>
                             <form action="{{ route('posts.destroy',$post->id) }}" method="Post">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

@@ -3,15 +3,18 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
-class MyFormRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        $post = Post::findOrFail($this->post);
+        return $post->user_id == Auth::id();
     }
 
     /**
@@ -22,12 +25,9 @@ class MyFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
             'title' => ['required'],
             'body' => ['required'],
             'enabled' => [],
-            'published_at' => [],
-            'user_id' => ['required']
         ];
     }
 }

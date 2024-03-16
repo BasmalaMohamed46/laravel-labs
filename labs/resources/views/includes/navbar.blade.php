@@ -18,6 +18,9 @@
           <a class="dropdown-item {{ Request::route()->getName() == 'posts.create' ? 'active' : '' }}" href="{{ route('posts.create') }}">New Post</a>
         </div>
       </li>
+      <li class="nav-item {{ Request::route()->getName() == 'users.index' ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('users.index') }}">Users <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
   </div>
 </nav>
